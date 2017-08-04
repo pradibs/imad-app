@@ -30,7 +30,7 @@ var articles={
     'article-two':{
         title:'Article One I am pradi',
         heading:'Artcile One',
-        date:'Aug 5 2017',
+        date:'Aug 01 2017',
         content:
         `<p>
             This is the article secondsecond being deployed.This is the article secondsecond being deployed.This is the article second being deployed.
@@ -39,7 +39,7 @@ var articles={
     'article-three':{
         title:'Article One I am pradi',
         heading:'Artcile One',
-        date:'Aug 5 2017',
+        date:'Aug 10 2017',
         content:
         `<p>
             This is the article three being deployed.This is the article three being deployed.
