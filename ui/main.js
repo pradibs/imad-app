@@ -16,17 +16,16 @@ img.onclick= function(){
 */
 
 //Counter
-var button = document.getElementById('Counter');
-var counter =0;
+var button = document.getElementById('counter');
 
 button.onclick= function(){
   
   //Make a request to the counter endpoint
-  var request = new XMLHttpResponse();
+  var request = new XMLHttpRequest();
   
   //capture the response and store it in a variable
   request.onreadystatechange= function(){
-      if(request.readyState=== XMLHttpRequest.Done){
+      if(request.readyState=== XMLHttpRequest.DONE){
           //Take some action
           if(request.status=== 200){
               var counter= request.responseText;
@@ -39,5 +38,4 @@ button.onclick= function(){
  //make request
  request.open('GET','http://pradibs.imad.hasura-app.io/counter',true);
  request.send(null);
-    
 };
