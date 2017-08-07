@@ -46,15 +46,34 @@ var name = nameInput.value;
 var submit = document.getElementById('submit_btn');
 
 submit.onclick= function(){
-    //make request to the server and send name
-    //capture list of  names  and render it as a list
-    var names= ['name1', 'name2', 'name3']
-    var list='';
-    for (i=0; i<names.length; i++)
-    {
-     list += '<li>' + names[i] + '</li>';
-    }
     
-    var ul = document.getElementById('nameList');
-    ul.innerHTML=list;
+    //Make a request to the counter endpoint
+  var request = new XMLHttpRequest();
+  
+  //capture the response and store it in a variable
+  request.onreadystatechange= function(){
+      if(request.readyState=== XMLHttpRequest.DONE){
+          //Take some action
+          if(request.status=== 200){
+            //capture list of  names  and render it as a list
+            var names= request.responseText;
+            names=JSON.parse(names);
+            var list='';
+            for (i=0; i<names.length; i++)
+            {
+             list += '<li>' + names[i] + '</li>';
+            }
+            
+            var ul = document.getElementById('nameList');
+            ul.innerHTML=list;
+          }
+      }
+  };
+  
+ //make request
+ request.open('GET','http://pradibs.imad.hasura-app.io/submit-name?name='+ name,true);
+ request.send(null);
+    
+    //make request to the server and send name
+   
 };
