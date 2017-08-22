@@ -56,7 +56,7 @@ submit.onclick= function(){
             alert('logged in');
           }else if  (request.status=== 403){
               alert('password was incorrect');
-          } else if (request.status=== 403){
+          } else if (request.status=== 500){
               alert('something wrong');
           }
       }
@@ -67,7 +67,6 @@ submit.onclick= function(){
  var password= document.getElementById('password').value;
  console.log(username);
  console.log(password);
- var name = nameInput.value;
  request.open('POST','http://pradibs.imad.hasura-app.io/login',true);
  request.setRequestHeader('Content-Type', 'application/json');
  request.send(JSON.stringify({username: username, password: password}));
