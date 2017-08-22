@@ -13,7 +13,6 @@ img.onclick= function(){
     var interval = setInterval(moveright,50);
     //img.style.marginLeft='100px';
 };
-*/
 
 //Counter
 var button = document.getElementById('counter');
@@ -39,11 +38,10 @@ button.onclick= function(){
  request.open('GET','http://pradibs.imad.hasura-app.io/counter',true);
  request.send(null);
 };
-
-//submit name
+*/
 
 var submit = document.getElementById('submit_btn');
-
+//submit username/password to login
 submit.onclick= function(){
     
     //Make a request to the counter endpoint
@@ -54,26 +52,25 @@ submit.onclick= function(){
       if(request.readyState=== XMLHttpRequest.DONE){
           //Take some action
           if(request.status=== 200){
-            //capture list of  names  and render it as a list
-            var names= request.responseText;
-            names=JSON.parse(names);
-            var list='';
-            for (i=0; i<names.length; i++)
-            {
-             list += '<li>' + names[i] + '</li>';
-            }
-            
-            var ul = document.getElementById('nameList');
-            ul.innerHTML=list;
+          console.log('user  logged in');
+            alert('logged in');
+          }else if  (request.status=== 403){
+              alert('password was incorrect');
+          } else if (request.status=== 403){
+              alert('something wrong');
           }
       }
   };
   
  //make request
- var nameInput= document.getElementById('name');
+ var username= document.getElementById('username').value;
+ var password= document.getElementById('password').value;
+ console.log(username);
+ console.log(password);
  var name = nameInput.value;
- request.open('GET','http://pradibs.imad.hasura-app.io/submit-name?name='+ name,true);
- request.send(null);
+ request.open('POST','http://pradibs.imad.hasura-app.io/login',true);
+ request.setRequestHeader('Content-Type', 'application/json');
+ request.send(JSON.stringify({username: username, password: password}));
     
     //make request to the server and send name
    
