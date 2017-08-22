@@ -2,6 +2,7 @@ var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
 var Pool=require('pg').Pool;
+var crypto= require('crypto');
 
 var config = {
     user:'pradibs',
@@ -14,47 +15,6 @@ var config = {
 var app = express();
 app.use(morgan('combined'));
 
-var articles={
-    'article-one':{
-        title:'Article One I am pradi',
-        heading:'Artcile One',
-        date:'Aug 5 2017',
-        content:
-        `<p>
-            This is the article one being deployed.This is the article one being deployed.This is the article one being deployed.
-            This is the article one being deployed.This is the article one being deployed.
-            This is the article one being deployed.
-        </p>
-        <p>
-            This is the article one being deployed.This is the article one being deployed.This is the article one being deployed.
-            This is the article one being deployed.This is the article one being deployed.
-            This is the article one being deployed.
-        </p>
-        <p>
-            This is the article one being deployed.This is the article one being deployed.This is the article one being deployed.
-            This is the article one being deployed.This is the article one being deployed.
-            This is the article one being deployed.
-        </p>`
-    },
-    'article-two':{
-        title:'Article One I am pradi',
-        heading:'Artcile One',
-        date:'Aug 01 2017',
-        content:
-        `<p>
-            This is the article secondsecond being deployed.This is the article secondsecond being deployed.This is the article second being deployed.
-        </p>`
-    },
-    'article-three':{
-        title:'Article One I am pradi',
-        heading:'Artcile One',
-        date:'Aug 10 2017',
-        content:
-        `<p>
-            This is the article three being deployed.This is the article three being deployed.
-        </p>`
-    }
-};
 
 function createTemplate(data){
     
@@ -96,6 +56,18 @@ function createTemplate(data){
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
+
+function hash(input,salt){
+    // how to create hash?
+    var hashed = crypto.pbkdf2Sync(input, salt,10000,512,'sha512');
+    return hashed.toString('hex');
+}
+
+app.get('/hash/:input', function (req, res) {
+  var hashString =hash(req.params.input, 'this-is-some-salt-string');
+  res.send(hashString);
+});
+
 
 var pool= new Pool(config);
 app.get('/test-db', function(req,res){
