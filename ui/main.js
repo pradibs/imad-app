@@ -68,7 +68,6 @@ submit.onclick= function(){
  console.log(username);
  console.log(password);
  request.open('POST','http://pradibs.imad.hasura-app.io/login',true);
- console.log('done');
  request.setRequestHeader('Content-Type', 'application/json');
  request.send(JSON.stringify({username: username, password: password}));
     
